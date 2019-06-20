@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Thin Ice - Level Converter</title>
+  </head>
+  <body>
+    <textarea id="input" rows="8" cols="80"></textarea>
+    <button type="button" name="button" onclick="convert()">Convert</button>
+    <textarea id="output" rows="8" cols="80"></textarea>
+  </body>
+</html>
+<script type="text/javascript">
+  var inputArea = document.getElementById("input");
+  var outputArea = document.getElementById("output");
+  function convert() {
+    var input = inputArea.value.split("\n");
+    for (var i = 0; i < input.length; i++) {
+      input[i] = "[" + input[i] + "],\n";
+      outputArea.value += input[i]
+    };
+  }
+</script>
