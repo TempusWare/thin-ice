@@ -7,272 +7,126 @@ var tileSize = 24;
 canvas.height = tileSize * levelCols;
 canvas.width = tileSize * levelRows;
 
-var idTile = 0;
-var idTileImg = new Image();
-idTileImg.src = "sprites/" + idTile + ".png";
-var idIce = 1;
-var idIceImg = new Image();
-idIceImg.src = "sprites/" + idIce + ".png";
-var idCoin = 2;
-var idCoinImg = new Image();
-idCoinImg.src = "sprites/" + idCoin + ".png";
-var idGoal = 9;
-var idGoalImg = new Image();
-idGoalImg.src = "sprites/" + idGoal + ".png";
-var idGoalImg = new Image();
-idGoalImg.src = "sprites/" + idGoal + ".png";
-var idPlayer = 10;
-var idPlayerImg = new Image();
-idPlayerImg.src = "sprites/" + idPlayer + ".png";
-var idOutside = 11;
-var idOutsideImg = new Image();
-idOutsideImg.src = "sprites/" + idOutside + ".png";
-var idWall = 12;
-var idWallImg = new Image();
-idWallImg.src = "sprites/" + idWall + ".png";
-var idWater = 13;
-var idWaterImg = new Image();
-idWaterImg.src = "sprites/" + idWater + ".png";
-
-var level1 = [
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11,11],
-  [11,12,9,0,0,0,0,0,0,0,0,0,0,0,10,12,11,11,11],
-  [11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-];
-var level2 = [
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,12,12,12,11,11,11],
-  [11,11,11,11,11,12,12,12,12,12,12,12,11,12,9,12,11,11,11],
-  [11,11,11,11,11,12,0,0,0,0,0,12,11,12,0,12,11,11,11],
-  [11,12,12,12,12,12,0,12,12,12,0,12,12,12,0,12,11,11,11],
-  [11,12,10,0,0,0,0,12,11,12,0,0,0,0,0,12,11,11,11],
-  [11,12,12,12,12,12,12,12,11,12,12,12,12,12,12,12,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-];
-var level3 = [
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,12,12,12,11,11,11,11,11,11,11,11,12,12,12,11,11,11],
-  [11,11,12,9,12,11,11,11,11,11,11,11,11,12,10,12,11,11,11],
-  [11,11,12,0,12,12,12,12,12,11,11,11,11,12,0,12,11,11,11],
-  [11,11,12,0,12,12,0,0,12,12,12,12,12,12,0,12,11,11,11],
-  [11,11,12,0,0,0,0,0,0,0,0,0,0,0,0,12,11,11,11],
-  [11,11,12,0,0,12,12,12,12,0,0,12,12,0,0,12,11,11,11],
-  [11,11,12,12,12,12,11,11,12,12,12,12,12,12,12,12,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-];
-var level4 = [
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,12,12,12,12,12,11,11,11,11,11,11,12,12,12,12,12,11,11],
-  [11,12,0,0,0,12,12,12,12,12,12,12,12,0,0,0,12,11,11],
-  [11,12,0,0,0,12,12,0,0,0,0,12,12,0,0,0,12,11,11],
-  [11,12,12,0,0,0,0,0,0,0,0,0,0,0,0,12,12,11,11],
-  [11,11,12,0,12,12,12,12,0,0,12,12,12,12,0,12,11,11,11],
-  [11,11,12,0,12,11,12,0,0,0,0,12,11,12,0,12,11,11,11],
-  [11,11,12,10,12,11,12,2,0,0,0,12,11,12,9,12,11,11,11],
-  [11,11,12,12,12,11,12,12,12,12,12,12,11,12,12,12,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-];
-var level8 = [
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
-  [12,12,12,12,12,11,11,11,12,12,12,12,12,11,11,11,11,11,11],
-  [12,0,0,0,12,12,12,12,12,0,0,0,12,11,11,11,11,11,11],
-  [12,0,12,0,12,12,10,12,12,0,12,0,12,11,11,11,11,11,11],
-  [12,0,0,1,0,0,1,0,0,1,0,0,12,12,12,12,11,11,11],
-  [12,12,12,0,12,12,0,12,12,0,12,12,12,12,9,12,11,11,11],
-  [11,12,12,0,12,12,0,12,12,0,12,12,12,12,0,12,11,11,11],
-  [11,12,0,0,0,0,1,0,0,1,0,0,12,0,0,12,12,11,11],
-  [11,12,2,0,0,12,0,12,12,0,12,0,12,0,0,0,12,11,11],
-  [11,12,0,0,0,0,0,12,12,0,0,0,12,12,0,0,12,11,11],
-  [11,12,0,0,12,12,12,12,12,12,12,12,12,12,0,0,12,11,11],
-  [11,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,12,11,11],
-  [11,11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11],
-];
-var level = [];
-// Level selector
-function selectLevel(number) {
-  switch (number) {
-    case "1":
-      level = level1;
-      break;
-    case "2":
-      level = level2;
-      break;
-    case "3":
-      level = level3;
-      break;
-    case "4":
-      level = level4;
-      break;
-    case "8":
-      level = level8;
-      break;
-  };
-  startGame()
+var tiles = {
+  space: {id: 0, colour: "white"},
+  ice: {id: 1, colour: "aqua"},
+  coin: {id: 2, colour: "gold"},
+  goal: {id: 9, colour: "crimson"},
+  player: {id: 10, colour: "grey"},
+  outside: {id: 11, colour: "lightcyan"},
+  wall: {id: 12, colour: "navy"},
+  water: {id: 13, colour: "royalblue"}
+};
+for (tile in tiles) {
+  tiles[tile].img = new Image();
+  tiles[tile].img.src = "sprites/" + tiles[tile].id + ".png"
 };
 
-var graphicsImg;
+var levels = [
+  [ // 01
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11,11],
+    [11,12,9,0,0,0,0,0,0,0,0,0,0,0,10,12,11,11,11],
+    [11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+  ],
+  [ // 02
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,12,12,12,11,11,11],
+    [11,11,11,11,11,12,12,12,12,12,12,12,11,12,9,12,11,11,11],
+    [11,11,11,11,11,12,0,0,0,0,0,12,11,12,0,12,11,11,11],
+    [11,12,12,12,12,12,0,12,12,12,0,12,12,12,0,12,11,11,11],
+    [11,12,10,0,0,0,0,12,11,12,0,0,0,0,0,12,11,11,11],
+    [11,12,12,12,12,12,12,12,11,12,12,12,12,12,12,12,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+  ],
+  [ // 03
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,12,12,12,11,11,11,11,11,11,11,11,12,12,12,11,11,11],
+    [11,11,12,9,12,11,11,11,11,11,11,11,11,12,10,12,11,11,11],
+    [11,11,12,0,12,12,12,12,12,11,11,11,11,12,0,12,11,11,11],
+    [11,11,12,0,12,12,0,0,12,12,12,12,12,12,0,12,11,11,11],
+    [11,11,12,0,0,0,0,0,0,0,0,0,0,0,0,12,11,11,11],
+    [11,11,12,0,0,12,12,12,12,0,0,12,12,0,0,12,11,11,11],
+    [11,11,12,12,12,12,11,11,12,12,12,12,12,12,12,12,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+  ],
+  [ // 04
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,12,12,12,12,12,11,11,11,11,11,11,12,12,12,12,12,11,11],
+    [11,12,0,0,0,12,12,12,12,12,12,12,12,0,0,0,12,11,11],
+    [11,12,0,0,0,12,12,0,0,0,0,12,12,0,0,0,12,11,11],
+    [11,12,12,0,0,0,0,0,0,0,0,0,0,0,0,12,12,11,11],
+    [11,11,12,0,12,12,12,12,0,0,12,12,12,12,0,12,11,11,11],
+    [11,11,12,0,12,11,12,0,0,0,0,12,11,12,0,12,11,11,11],
+    [11,11,12,10,12,11,12,2,0,0,0,12,11,12,9,12,11,11,11],
+    [11,11,12,12,12,11,12,12,12,12,12,12,11,12,12,12,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+  ],
+  [ // 05 (but actually 08)
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11],
+    [12,12,12,12,12,11,11,11,12,12,12,12,12,11,11,11,11,11,11],
+    [12,0,0,0,12,12,12,12,12,0,0,0,12,11,11,11,11,11,11],
+    [12,0,12,0,12,12,10,12,12,0,12,0,12,11,11,11,11,11,11],
+    [12,0,0,1,0,0,1,0,0,1,0,0,12,12,12,12,11,11,11],
+    [12,12,12,0,12,12,0,12,12,0,12,12,12,12,9,12,11,11,11],
+    [11,12,12,0,12,12,0,12,12,0,12,12,12,12,0,12,11,11,11],
+    [11,12,0,0,0,0,1,0,0,1,0,0,12,0,0,12,12,11,11],
+    [11,12,2,0,0,12,0,12,12,0,12,0,12,0,0,0,12,11,11],
+    [11,12,0,0,0,0,0,12,12,0,0,0,12,12,0,0,12,11,11],
+    [11,12,0,0,12,12,12,12,12,12,12,12,12,12,0,0,12,11,11],
+    [11,12,12,0,0,0,0,0,0,0,0,0,0,0,0,0,12,11,11],
+    [11,11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11],
+  ],
+];
+var level = 0;
 
-function startGame() {
-// Find player and goal positions in level
-for (var c = 0; c < levelCols; c++) {
-  console.log(c + " " + level[c])
-  if (level[c].includes(idPlayer)) {
-    var playerCol = c;
-    var playerRow = level[c].indexOf(idPlayer)
-  };
-  if (level[c].includes(idGoal)) {
-    var goalCol = c;
-    var goalRow = level[c].indexOf(idGoal)
-  }
+var menuArt1 = new Image();
+menuArt1.src = "sprites/menu-art-1.png";
+
+var gamestate = "menu";
+
+menuArt1.onload = function () {
+  console.log("Menu started.")
+  context.fillStyle = "#D9F1FF";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(menuArt1, 134, 112.5);
+  context.fillStyle = "black";
+  context.textAlign = "center";
+  context.font = "15px monospace";
+  context.fillText("Press SPACE to start!", canvas.width / 2, canvas.height / 4 * 3);
 };
-console.log("Player Row: " + playerRow + " | Player Column: " + playerCol + "\nGoal Row: " + goalRow + " | Goal Column: " + goalCol)
-renderLevel();
-function gameLoop() {
-  switch (keypress) {
-    case "left":
-      if (level[playerCol][playerRow - 1] > idPlayer) {break};
-      if (level[playerCol][playerRow] == idIce) {level[playerCol][playerRow] = idTile}
-      else {level[playerCol][playerRow] = idWater};
-      playerRow--;
-      break
-    case "right":
-      if (level[playerCol][playerRow + 1] > idPlayer) {break};
-      if (level[playerCol][playerRow] == idIce) {level[playerCol][playerRow] = idTile}
-      else {level[playerCol][playerRow] = idWater};
-      playerRow++
-      break
-    case "up":
-      if (level[playerCol - 1][playerRow] > idPlayer) {break};
-      if (level[playerCol][playerRow] == idIce) {level[playerCol][playerRow] = idTile}
-      else {level[playerCol][playerRow] = idWater};
-      playerCol--;
-      break
-    case "down":
-      if (level[playerCol + 1][playerRow] > idPlayer) {break};
-      if (level[playerCol][playerRow] == idIce) {level[playerCol][playerRow] = idTile}
-      else {level[playerCol][playerRow] = idWater};
-      playerCol++;
-      break
-  };
 
-  /*if (level[playerCol][playerRow + 1] != 0 && level[playerCol][playerRow - 1] != 0 && level[playerCol + 1][playerRow] != 0 && level[playerCol - 1][playerRow] != 0) {
-    level[playerCol][playerRow] = 3;
-    playerCol = 0;
-    playerRow = 0;
-    renderLevel();
-    return;
-  };*/
-
-  updateGame();
-
-  setTimeout(gameLoop, 100)
-};
-gameLoop();
-function updateGame() {
-  if (level[playerCol][playerRow] == idCoin) {
-    level[playerCol][playerRow] = idPlayer;
-    console.log("COIN BAG collected")
-  };
-  if (playerRow == goalRow && playerCol == goalCol) {
-    //goalRow = 0;
-    //goalCol = 0;
-    console.log("You win!");
-    var allMelted = true;
-    for (var c = 0; c < levelCols; c++) {
-      if (level[c].includes(idTile)) {
-        allMelted = false;
-      }
-    };
-    if (allMelted) {console.log("All tiles have been melted!")}
-  };
-  if (level[playerCol + 1][playerRow] > 10 && level[playerCol - 1][playerRow] > 10 && level[playerCol][playerRow + 1] > 10 && level[playerCol][playerRow - 1] > 10) {
-    level[playerCol][playerRow] = idWater;
-    console.log("Game over")
-  }
-  renderLevel()
-}
-function renderLevel() {
-
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  for (var c = 0; c < levelCols; c++) {
-    for (var r = 0; r < levelRows; r++) {
-      switch (level[c][r]) {
-        case idTile: case idPlayer:
-          context.fillStyle = "white";
-          context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize);
-          if (graphicsImg) {context.drawImage(idTileImg, r * tileSize, c * tileSize)};
-          break;
-        case idCoin:
-          context.fillStyle = "orange";
-          context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize)
-          if (graphicsImg) {context.drawImage(idCoinImg, r * tileSize, c * tileSize)};
-          break;
-        case idOutside:
-          context.fillStyle = "#9BCDFF";
-          context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize)
-          if (graphicsImg) {context.drawImage(idOutsideImg, r * tileSize, c * tileSize)};
-          break;
-        case idIce:
-          context.fillStyle = "aqua";
-          context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize)
-          if (graphicsImg) {context.drawImage(idIceImg, r * tileSize, c * tileSize)};
-          break;
-        case idWall:
-          context.fillStyle = "#0066CC";
-          context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize)
-          if (graphicsImg) {context.drawImage(idWallImg, r * tileSize, c * tileSize)};
-          break;
-        case idWater:
-          context.fillStyle = "darkblue";
-          context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize)
-          if (graphicsImg) {context.drawImage(idWaterImg, r * tileSize, c * tileSize)};
-          break;
-      }
-    }
-  };
-  context.fillStyle = "red";
-  context.fillRect(goalRow * tileSize, goalCol * tileSize, tileSize, tileSize);
-  if (graphicsImg) {context.drawImage(idGoalImg, goalRow * tileSize, goalCol * tileSize)};
-  //if (playerRow == 0) {console.log("Game over!"); return};
-  if (level[playerCol][playerRow] <= idPlayer) {
-    context.fillStyle = "grey";
-    context.fillRect(playerRow * tileSize, playerCol * tileSize, tileSize, tileSize);
-    if (graphicsImg) {context.drawImage(idPlayerImg, playerRow * tileSize, playerCol * tileSize)}
-  }
-  //if (playerRow == goalRow && playerCol == goalCol) {console.log("You win!")}
-};
 var keypress;
 document.addEventListener("keydown", function(e) {
   switch (e.keyCode) {
@@ -288,9 +142,120 @@ document.addEventListener("keydown", function(e) {
 		case 83:
       keypress = "down";
 			break;
+    case 32:
+      keypress = "space"
   };
+  console.log("Key pressed.")
 });
 document.addEventListener("keyup", function(e) {
   keypress = false;
+  console.log("Key released.")
 });
+
+run();
+function run() {
+  switch (gamestate) {
+    case "menu":
+      if (keypress == "space") {gamestate = "play"; startGame()}
+      break;
+    case "play":
+      if (level >= levels.length) {console.log("Game complete."); return}
+      switch (keypress) {
+        case "left":
+          if (levels[level][playerCol][playerRow - 1] > tiles.player.id) {break};
+          if (levels[level][playerCol][playerRow] == tiles.ice.id) {levels[level][playerCol][playerRow]/*Pos*/ = tiles.space.id} else {levels[level][playerCol][playerRow]/*Pos*/ = tiles.water.id};
+          playerRow--;
+          break;
+        case "right":
+          if (levels[level][playerCol][playerRow + 1] > tiles.player.id) {break};
+          if (levels[level][playerCol][playerRow] == tiles.ice.id) {levels[level][playerCol][playerRow]/*Pos*/ = tiles.space.id} else {levels[level][playerCol][playerRow]/*Pos*/ = tiles.water.id};
+          playerRow++
+          break;
+        case "up":
+          if (levels[level][playerCol - 1][playerRow] > tiles.player.id) {break};
+          if (levels[level][playerCol][playerRow] == tiles.ice.id) {levels[level][playerCol][playerRow]/*Pos*/ = tiles.space.id} else {levels[level][playerCol][playerRow]/*Pos*/ = tiles.water.id};
+          playerCol--;
+          break;
+        case "down":
+          if (levels[level][playerCol + 1][playerRow] > tiles.player.id) {break};
+          if (levels[level][playerCol][playerRow] == tiles.ice.id) {levels[level][playerCol][playerRow]/*Pos*/ = tiles.space.id} else {levels[level][playerCol][playerRow]/*Pos*/ = tiles.water.id};
+          playerCol++;
+          break;
+      };
+      if (playerCol == goalCol && playerRow == goalRow) {console.log("Game won."); level++; setup()};
+      //if (levels[level][playerCol][playerRow - 1] > tiles.player.id && levels[level][playerCol][playerRow + 1] > tiles.player.id && levels[level][playerCol + 1][playerRow] > tiles.player.id && levels[level][playerCol - 1][playerRow] > tiles.player.id) {console.log("Game over."); playerCol = -1; playerRow = -1;};
+      render()
+  }
+  setTimeout(run, 75)
+};
+
+function startGame() {
+  console.log("Game started.");
+  setup();
+  render();
+/*function updateGame() {
+    if (level[playerCol][playerRow] == tileCoin) {
+      level[playerCol][playerRow] = tilePlayer;
+      console.log("COIN BAG collected")
+    };
+    if (playerRow == goalRow && playerCol == goalCol) {
+      //goalRow = 0;
+      //goalCol = 0;
+      console.log("You win!");
+      var allMelted = true;
+      for (var c = 0; c < levelCols; c++) {
+        if (level[c].includes(tileTile)) {
+          allMelted = false;
+        }
+      };
+      if (allMelted) {console.log("All tiles have been melted!")}
+    };
+    if (level[playerCol + 1][playerRow] > 10 && level[playerCol - 1][playerRow] > 10 && level[playerCol][playerRow + 1] > 10 && level[playerCol][playerRow - 1] > 10) {
+      level[playerCol][playerRow] = tileWater;
+      console.log("Game over")
+    }
+    renderLevel()
+  }*/
+};
+
+var playerCol;
+var playerRow;
+var goalCol;
+var goalRow;
+
+function setup() {
+  console.log("Entering setup.");
+  if (level >= levels.length) {console.log("Game complete."); return}
+  var playerId = tiles.player.id;
+  var goalId = tiles.goal.id;
+  for (var c = 0; c < levelCols; c++) {
+    if (levels[level][c].includes(playerId)) {
+      playerCol = c;
+      playerRow = levels[level][c].indexOf(playerId);
+      levels[level][c][levels[level][c].indexOf(playerId)] = tiles.space.id;
+    };
+    if (levels[level][c].includes(goalId)) {
+      goalCol = c;
+      goalRow = levels[level][c].indexOf(goalId)
+    };
+  }
+}
+
+function render() {
+  // Render level
+  if (level >= levels.length) {console.log("Game complete."); return}
+  for (var c = 0; c < levelCols; c++) {
+    for (var r = 0; r < levelRows; r++) {
+      var tileType = levels[level][c][r];
+      for (tile in tiles) {
+        if (tileType == tiles[tile].id) {
+          context.fillStyle = tiles[tile].colour
+        }
+      }
+      context.fillRect(r * tileSize, c * tileSize, tileSize, tileSize)
+    }
+  };
+  // Render player
+  context.fillStyle = tiles.player.colour;
+  context.fillRect(playerRow * tileSize, playerCol * tileSize, tileSize, tileSize);
 }

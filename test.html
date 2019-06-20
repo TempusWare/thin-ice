@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+  </body>
+</html>
+<script type="text/javascript">
+  var tiles = {
+    empty: {
+      id: 0
+    },
+    notempty: {
+      id: 1
+    }
+  }
+  for (tile in tiles) {
+    tiles[tile].imgsrc = "sprites/" + tiles[tile].id + ".png"
+    console.log(tiles[tile])
+  }
+</script>
